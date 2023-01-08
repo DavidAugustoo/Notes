@@ -1,8 +1,7 @@
 import { Router, Route } from 'electron-router-dom'
-
-import { Blank } from './pages/blank'
-import { Document } from './pages/documents'
-import { Default } from './pages/layouts/default'
+import { Blank } from './src/pages/blank'
+import { Document } from './src/pages/documents'
+import { Default } from './src/pages/layouts/default'
 
 export function Routes() {
   return (
