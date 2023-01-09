@@ -1,18 +1,26 @@
 import clsx from 'clsx'
 import { DotsThree } from 'phosphor-react'
 import { ReactNode } from 'react'
+import { NavLink } from 'react-router-dom'
+import { isArgumentsObject } from 'util/types'
 
 interface LinkProps {
+  to: string
   children: ReactNode
 }
 
-export function Link({ children }: LinkProps) {
+export function Link({ children, to }: LinkProps) {
   return (
-    <a
-      href="#"
-      className={clsx(
-        'flex items-center text-sm gap-2 text-notes-100 hover:text-notes-50 py-1 px-3 rounded group hover:bg-notes-700'
-      )}
+    <NavLink
+      to={to}
+      className={({ isActive }) => {
+        return clsx(
+          'flex items-center text-sm gap-2 text-notes-100 hover:text-notes-50 py-1 px-3 rounded group hover:bg-notes-700',
+          {
+            'bg-notes-700': isActive
+          }
+        )
+      }}
     >
       <span className="truncate flex-1">{children}</span>
 
@@ -21,6 +29,6 @@ export function Link({ children }: LinkProps) {
           <DotsThree weight="bold" className="h-4 w-4" />
         </button>
       </div>
-    </a>
+    </NavLink>
   )
 }
