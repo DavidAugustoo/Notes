@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
-import { randomUUID } from 'crypto'
-import { IPC } from '../shared/constants/ipc'
+import { randomUUID } from 'node:crypto'
+
 import {
   CreateDocumentResponse,
   DeleteDocumentRequest,
@@ -9,9 +9,10 @@ import {
   FetchDocumentRequest,
   FetchDocumentResponse,
   SaveDocumentRequest
-} from '../shared/types/ipc'
+} from '@shared/types/ipc'
 
 import { store } from './store'
+import { IPC } from '../shared/constants/ipc'
 
 ipcMain.handle(IPC.DOCUMENTS.FETCH_ALL, async (): Promise<FetchAllDocumentsResponse> => {
   return {
@@ -33,7 +34,7 @@ ipcMain.handle(
 ipcMain.handle(IPC.DOCUMENTS.CREATE, async (): Promise<CreateDocumentResponse> => {
   const id = randomUUID()
 
-  const document = {
+  const document: Document = {
     id,
     title: 'Untitled'
   }
@@ -48,7 +49,11 @@ ipcMain.handle(IPC.DOCUMENTS.CREATE, async (): Promise<CreateDocumentResponse> =
 ipcMain.handle(
   IPC.DOCUMENTS.SAVE,
   async (_, { id, title, content }: SaveDocumentRequest): Promise<void> => {
-    store.set(`documents.${id}`, { id, title, content })
+    store.set(`documents.${id}`, {
+      id,
+      title,
+      content
+    })
   }
 )
 

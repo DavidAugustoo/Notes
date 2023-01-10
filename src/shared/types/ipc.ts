@@ -7,7 +7,6 @@ export interface Document {
 /**
  * Request
  */
-
 export type SaveDocumentRequest = Document
 
 export interface FetchDocumentRequest {
@@ -21,7 +20,6 @@ export interface DeleteDocumentRequest {
 /**
  * Response
  */
-
 export interface FetchAllDocumentsResponse {
   data: Document[]
 }
